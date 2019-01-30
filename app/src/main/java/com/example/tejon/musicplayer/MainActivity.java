@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             playBtn.setBackgroundResource(R.drawable.stop);
         } else {
             //if playing
-            mp.stop();
+            mp.pause();
             playBtn.setBackgroundResource(R.drawable.play);
 
         }
