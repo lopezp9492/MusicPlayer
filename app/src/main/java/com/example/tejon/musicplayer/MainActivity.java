@@ -1,7 +1,6 @@
 package com.example.tejon.musicplayer;
 // Pedro Lopez
-// 015892940
-// made with tutorial from codingwithsara.com
+// Made with tutorial from codingwithsara.com
 
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public String createTimeLabel(int time){
-        String timeLabel = "";
+        String timeLabel = "!";
         int min = time / 1000 / 60;
         int sec = time / 1000 % 60;
 
@@ -160,11 +159,11 @@ public class MainActivity extends AppCompatActivity {
         //if not playing
         if (!mp.isPlaying()) {
             mp.start();
-            previousBtn.setBackgroundResource(R.drawable.stop);
+            previousBtn.setBackgroundResource(R.drawable.previous_small);
         } else {
             //if playing
             mp.pause();
-            previousBtn.setBackgroundResource(R.drawable.play);
+            previousBtn.setBackgroundResource(R.drawable.previous_small);
 
         }
     }
@@ -174,11 +173,11 @@ public class MainActivity extends AppCompatActivity {
         //if not playing
         if (!mp.isPlaying()) {
             mp.start();
-            nextBtn.setBackgroundResource(R.drawable.stop);
+            nextBtn.setBackgroundResource(R.drawable.next_small);
         } else {
             //if playing
             mp.pause();
-            nextBtn.setBackgroundResource(R.drawable.play);
+            nextBtn.setBackgroundResource(R.drawable.next_small);
 
         }
     }

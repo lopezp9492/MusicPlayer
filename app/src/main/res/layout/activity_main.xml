@@ -58,14 +58,16 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="45dp"
-            android:background="@drawable/play"
+            android:background="@drawable/previous_small"
             android:onClick="previousBtnClick" />
-
+        <!-- Play -->
         <Button
             android:id="@+id/playBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="45dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/play"
             android:onClick="playBtnClick" />
 
@@ -74,7 +76,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="45dp"
-            android:background="@drawable/play"
+            android:background="@drawable/next_small"
             android:onClick="nextBtnClick" />
 
     </LinearLayout>
