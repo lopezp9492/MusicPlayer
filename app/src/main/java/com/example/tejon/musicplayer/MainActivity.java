@@ -12,6 +12,15 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+
+/* song list
+    astronaut_beach_house
+    extra_vehicular_leisure
+    go_for_liftoff
+    mercury_redstone
+    moon_dance
+    ticker_tape_parade
+*/
 public class MainActivity extends AppCompatActivity {
 
     Button playBtn;
@@ -37,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         elapsedTimeLabel = (TextView) findViewById(R.id.elapsedTimeLabel);
         remainingTimeLabel = (TextView) findViewById(R.id.remainingTimeLabel);
 
-        //Media Player
+        // Media Player
         mp = MediaPlayer.create(this, R.raw.mercury_redstone);
         mp.setLooping(true);
         mp.seekTo(0);
@@ -156,29 +165,34 @@ public class MainActivity extends AppCompatActivity {
 
     // Previous Button
     public void previousBtnClick(View view) {
-        //if not playing
-        if (!mp.isPlaying()) {
-            mp.start();
-            previousBtn.setBackgroundResource(R.drawable.previous_small);
-        } else {
-            //if playing
-            mp.pause();
-            previousBtn.setBackgroundResource(R.drawable.previous_small);
+        if (mp.isPlaying()) {
+            mp.stop();
 
+            // Media Player
+            mp = MediaPlayer.create(this, R.raw.mercury_redstone);
+            mp.setLooping(true);
+            mp.seekTo(0);
+            mp.setVolume(0.5f, 0.5f);
+            totalTime = mp.getDuration();
+            //mp.selectTrack(R.raw.astronaut_beach_house);
+            mp.start();
         }
     }
 
     // Next Button
     public void nextBtnClick(View view) {
-        //if not playing
-        if (!mp.isPlaying()) {
-            mp.start();
-            nextBtn.setBackgroundResource(R.drawable.next_small);
-        } else {
-            //if playing
-            mp.pause();
-            nextBtn.setBackgroundResource(R.drawable.next_small);
 
+        if (mp.isPlaying()) {
+            mp.stop();
+
+            // Media Player
+            mp = MediaPlayer.create(this, R.raw.astronaut_beach_house);
+            mp.setLooping(true);
+            mp.seekTo(0);
+            mp.setVolume(0.5f, 0.5f);
+            totalTime = mp.getDuration();
+            //mp.selectTrack(R.raw.astronaut_beach_house);
+            mp.start();
         }
     }
 
