@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MusicPlayer</string>
+    <string name="test_resource">-1:49</string>
+    <string name="elapsed_time">0:00</string>
+    <string name="remaining_time">59:59</string>
+
 </resources>

@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/image"
         android:layout_marginTop="60dp"/>
-    
+
+    <!-- Play Bar-->
     <SeekBar
         android:id="@+id/positionBar"
         android:layout_width="300dp"
@@ -33,24 +34,52 @@
             android:id="@+id/elapsedTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0:11"
+            android:text="@string/elapsed_time"
             android:layout_marginLeft="40dp"/>
         <TextView
             android:id="@+id/remainingTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-1:49"
+            android:text="@string/remaining_time"
             android:layout_marginLeft="240dp"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/playBtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/play"
-        android:layout_marginTop="45dp"
-        android:onClick="playBtnClick"/>
 
+    <!-- Play Controls -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/previousBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/play"
+            android:onClick="previousBtnClick" />
+
+        <Button
+            android:id="@+id/playBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/play"
+            android:onClick="playBtnClick" />
+
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/play"
+            android:onClick="nextBtnClick" />
+
+    </LinearLayout>
+
+    <!-- Volume Bar-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

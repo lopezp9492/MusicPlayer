@@ -16,6 +16,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     Button playBtn;
+    Button previousBtn;
+    Button nextBtn;
+
     SeekBar positionBar;
     SeekBar volumeBar;
     TextView elapsedTimeLabel;
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         playBtn = (Button) findViewById(R.id.playBtn);
+        previousBtn = (Button) findViewById(R.id.previousBtn);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
+
         elapsedTimeLabel = (TextView) findViewById(R.id.elapsedTimeLabel);
         remainingTimeLabel = (TextView) findViewById(R.id.remainingTimeLabel);
 
@@ -135,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Play Button
     public void playBtnClick(View view) {
         //if not playing
         if (!mp.isPlaying()) {
@@ -146,7 +153,34 @@ public class MainActivity extends AppCompatActivity {
             playBtn.setBackgroundResource(R.drawable.play);
 
         }
+    }
 
+    // Previous Button
+    public void previousBtnClick(View view) {
+        //if not playing
+        if (!mp.isPlaying()) {
+            mp.start();
+            previousBtn.setBackgroundResource(R.drawable.stop);
+        } else {
+            //if playing
+            mp.pause();
+            previousBtn.setBackgroundResource(R.drawable.play);
+
+        }
+    }
+
+    // Next Button
+    public void nextBtnClick(View view) {
+        //if not playing
+        if (!mp.isPlaying()) {
+            mp.start();
+            nextBtn.setBackgroundResource(R.drawable.stop);
+        } else {
+            //if playing
+            mp.pause();
+            nextBtn.setBackgroundResource(R.drawable.play);
+
+        }
     }
 
 }
