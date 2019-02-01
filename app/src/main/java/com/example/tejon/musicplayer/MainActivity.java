@@ -3,14 +3,18 @@ package com.example.tejon.musicplayer;
 // Made with tutorial from codingwithsara.com
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import java.util.ArrayList;
+
 
 
 /* song list
@@ -23,6 +27,16 @@ import android.widget.TextView;
 */
 public class MainActivity extends AppCompatActivity {
 
+    final int[] resID = {
+            R.raw.astronaut_beach_house,
+            R.raw.extra_vehicular_leisure,
+            R.raw.go_for_liftoff,
+            R.raw.mercury_redstone,
+            R.raw.moon_dance,
+            R.raw.ticker_tape_parade
+    };
+    ArrayList<String> songs;
+
     Button playBtn;
     Button previousBtn;
     Button nextBtn;
@@ -33,11 +47,25 @@ public class MainActivity extends AppCompatActivity {
     TextView remainingTimeLabel;
     MediaPlayer mp;
     int totalTime;
+    int album_size;
+    int track;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        songs = new ArrayList<>();
+        songs.add("astronaut_beach_house");
+        songs.add("extra_vehicular_leisure");
+        songs.add("go_for_liftoff");
+        songs.add("mercury_redstone");
+        songs.add("moon_dance");
+        songs.add("ticker_tape_parade");
+        album_size = songs.size();
+        track = 0;
+
 
         playBtn = (Button) findViewById(R.id.playBtn);
         previousBtn = (Button) findViewById(R.id.previousBtn);
@@ -47,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         remainingTimeLabel = (TextView) findViewById(R.id.remainingTimeLabel);
 
         // Media Player
-        mp = MediaPlayer.create(this, R.raw.mercury_redstone);
+        mp = MediaPlayer.create(this, resID[track]); //R.raw.mercury_redstone
         mp.setLooping(true);
         mp.seekTo(0);
         mp.setVolume(0.5f, 0.5f);
@@ -167,9 +195,11 @@ public class MainActivity extends AppCompatActivity {
     public void previousBtnClick(View view) {
         if (mp.isPlaying()) {
             mp.stop();
+            track = (track-1);
+            if(track < 0 ){track = album_size;}
 
             // Media Player
-            mp = MediaPlayer.create(this, R.raw.mercury_redstone);
+            mp = MediaPlayer.create(this, resID[track]);
             mp.setLooping(true);
             mp.seekTo(0);
             mp.setVolume(0.5f, 0.5f);
@@ -184,9 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
         if (mp.isPlaying()) {
             mp.stop();
+            track = (track+1)%album_size;
+
 
             // Media Player
-            mp = MediaPlayer.create(this, R.raw.astronaut_beach_house);
+            mp = MediaPlayer.create(this, resID[track]);
             mp.setLooping(true);
             mp.seekTo(0);
             mp.setVolume(0.5f, 0.5f);
