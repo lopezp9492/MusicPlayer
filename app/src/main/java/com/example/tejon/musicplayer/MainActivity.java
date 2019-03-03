@@ -9,11 +9,19 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+
+import java.net.*;
+
 
 
 
@@ -27,6 +35,7 @@ import java.util.ArrayList;
 */
 public class MainActivity extends AppCompatActivity {
 
+    // Resource ID's to pass to the media player
     final int[] resID = {
             R.raw.astronaut_beach_house,
             R.raw.extra_vehicular_leisure,
@@ -35,11 +44,19 @@ public class MainActivity extends AppCompatActivity {
             R.raw.moon_dance,
             R.raw.ticker_tape_parade
     };
+
+    // This list is not used except to get a count of the number of songs in the list
+    // List could be used to display the name of the song.
     ArrayList<String> songs;
 
     Button playBtn;
     Button previousBtn;
     Button nextBtn;
+    Button testBtn;
+    private static final int SERVER_PORT = 6790;
+    private static final String TAG = "MyActivity"; //For error logging
+
+
 
     SeekBar positionBar;
     SeekBar volumeBar;
@@ -56,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // This list is not used except to get a count of the number of songs in the list
+        // List could be used to display the name of the song.
         songs = new ArrayList<>();
         songs.add("astronaut_beach_house");
         songs.add("extra_vehicular_leisure");
@@ -70,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         playBtn = (Button) findViewById(R.id.playBtn);
         previousBtn = (Button) findViewById(R.id.previousBtn);
         nextBtn = (Button) findViewById(R.id.nextBtn);
+        testBtn = (Button) findViewById(R.id.btnTest);
 
         elapsedTimeLabel = (TextView) findViewById(R.id.elapsedTimeLabel);
         remainingTimeLabel = (TextView) findViewById(R.id.remainingTimeLabel);
@@ -226,6 +246,83 @@ public class MainActivity extends AppCompatActivity {
             //mp.selectTrack(R.raw.astronaut_beach_house);
             mp.start();
         }
+    }
+
+    // Next Button
+    public void testBtnClick(View view) {
+        //Toast
+        CharSequence testText = "Button Clicked";
+        int long_duration = Toast.LENGTH_LONG;
+        int short_duration = Toast.LENGTH_SHORT;
+
+        Toast clicked_toast = Toast.makeText(this, testText, short_duration);
+        clicked_toast.show();
+        Log.v(TAG, "Button Clicked");
+
+
+        DatagramSocket aSocket = null;
+        try {
+            // DEBUG
+            testText = "Trying";
+            clicked_toast = Toast.makeText(this, testText, short_duration);
+            clicked_toast.setGravity(Gravity.TOP| Gravity.LEFT, 0, 0);
+            clicked_toast.show();
+            Log.v(TAG, "Trying...");
+
+
+            aSocket = new DatagramSocket();
+            Log.v(TAG, "Socket Created...");
+
+
+            // Message and InetAddress
+            String mStr = "Hello from Client";
+            byte [] m =  mStr.getBytes(); //Message
+            InetAddress aHost = InetAddress.getByName("192.168.56.1"); // Server Address
+            Log.v(TAG, "InetAddress Created...");
+
+
+            // SEND
+            DatagramPacket request = new DatagramPacket (m, m.length, aHost, SERVER_PORT);
+            aSocket.send(request);
+            Log.v(TAG, "DatagramPacket Request Sent...");
+
+
+            // RECEIVE
+            byte[] buffer = new byte[1000];
+            DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
+            aSocket.receive(reply);
+            Log.v(TAG, "DatagramPacket Received.");
+
+
+            //Toast
+            CharSequence text = "Empty";
+            Charset  charset = Charset.defaultCharset();
+            text = new String(reply.getData(), charset);
+            Log.v(TAG, text.toString().substring(0, reply.getLength()));
+
+            Toast toast = Toast.makeText(this, text, short_duration);
+            toast.show();
+
+            //System.out.println("Reply: " + new String(reply.getData()));
+            Log.v(TAG, "Done.");
+
+
+        }catch (SocketException e ) {
+            Log.v(TAG, "Socket: " + e.getMessage());
+        }catch (IOException e) {
+            Log.v(TAG, "IO: " + e.getMessage());
+        }finally {
+            if(aSocket != null){
+                aSocket.close();
+                Log.v(TAG, "Socket closed.");
+            }
+            else
+            {
+                Log.v(TAG, "Socket was null.");
+            }
+
+        }
+
     }
 
 }
