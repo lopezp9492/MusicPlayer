@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
     Button previousBtn;
     Button nextBtn;
     Button testBtn;
-    private static final int SERVER_PORT = 6790;
+    private static final int SERVER_PORT = 2048;
+    private static final int CLIENT_PORT = 994;
     private static final String TAG = "MyActivity"; //For error logging
 
 
@@ -269,15 +270,20 @@ public class MainActivity extends AppCompatActivity {
             clicked_toast.show();
             Log.v(TAG, "Trying...");
 
-
+            //Log.v(TAG, "Client Socket:" + CLIENT_PORT);
             aSocket = new DatagramSocket();
+            int aqw = aSocket.getLocalPort();
+            Log.v(TAG, "Client Socket:" + aqw);
             Log.v(TAG, "Socket Created...");
 
 
             // Message and InetAddress
             String mStr = "Hello from Client";
-            byte [] m =  mStr.getBytes(); //Message
-            InetAddress aHost = InetAddress.getByName("192.168.56.1"); // Server Address
+            byte [] m =  mStr.getBytes(); // Message
+            // aHost = InetAddress.getByName("127.0.0.1"); // Server Address //IPV4
+            InetAddress aHost = InetAddress.getByName("192.168.56.1"); // Server Address //IPV4
+            //InetAddress aHost = InetAddress.getByName("10.39.56.132"); // Server Address //IPV4
+            //InetAddress aHost = InetAddress.getByName("e80::90b9:4412:1ce2:cec4%5"); // Server Address // IPV6
             Log.v(TAG, "InetAddress Created...");
 
 
